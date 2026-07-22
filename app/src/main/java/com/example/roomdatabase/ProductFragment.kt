@@ -20,6 +20,12 @@ import java.util.Locale
 
 import android.util.Log
 
+import android.app.Dialog
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import com.bumptech.glide.Glide
+
 class ProductFragment : Fragment() {
 
     private var rvProducts: RecyclerView? = null
@@ -27,7 +33,7 @@ class ProductFragment : Fragment() {
     private var shimmerView: ShimmerFrameLayout? = null
     private var allProducts: List<Product> = listOf()
 
-    private val TAG = "ProductFragment"
+    private val tag = "ProductFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,11 +74,41 @@ class ProductFragment : Fragment() {
                 it.category.lowercase(Locale.getDefault()).contains(query.lowercase(Locale.getDefault()))
             }
         }
-        rvProducts?.adapter = ProductAdapter(filteredList)
+        rvProducts?.adapter = ProductAdapter(filteredList, { product ->
+            showProductDetailsDialog(product)
+        }, { product ->
+            addToWishlist(product)
+        }, { product ->
+            addToCart(product)
+        })
+    }
+
+    private fun addToCart(product: Product) {
+        lifecycleScope.launch {
+            try {
+                val db = AppDatabase.getDatabase(requireContext())
+                withContext(Dispatchers.IO) {
+                    val existingItem = db.cartDao().getCartItemById(product.id)
+                    if (existingItem != null) {
+                        existingItem.quantity += 1
+                        db.cartDao().updateCartItem(existingItem)
+                    } else {
+                        db.cartDao().insertCartItem(CartItem(product))
+                    }
+                }
+                Toast.makeText(requireContext(), "${product.title} added to Cart!", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Error adding to cart", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun addToWishlist(product: Product) {
+        Toast.makeText(requireContext(), "${product.title} added to Wishlist!", Toast.LENGTH_SHORT).show()
     }
 
     private fun fetchProducts() {
-        Log.d(TAG, "fetchProducts: Started")
+        Log.d(tag, "fetchProducts: Started")
         shimmerView?.visibility = View.VISIBLE
         shimmerView?.startShimmer()
         rvProducts?.visibility = View.GONE
@@ -85,40 +121,55 @@ class ProductFragment : Fragment() {
                 val db = AppDatabase.getDatabase(appContext)
                 val productDao = db.productDao()
                 
-                val cachedProducts = withContext(Dispatchers.IO) { productDao.allProducts }
+                val cachedProducts = withContext(Dispatchers.IO) { productDao.getAllProducts() }
                 if (cachedProducts.isNotEmpty()) {
                     allProducts = cachedProducts
-                    rvProducts?.adapter = ProductAdapter(allProducts)
-                    
-                    // Hide shimmer if we have cached data
-                    shimmerView?.stopShimmer()
-                    shimmerView?.visibility = View.GONE
-                    rvProducts?.visibility = View.VISIBLE
+                    if (isAdded) {
+                        rvProducts?.adapter = ProductAdapter(allProducts, { product ->
+                            showProductDetailsDialog(product)
+                        }, { product ->
+                            addToWishlist(product)
+                        }, { product ->
+                            addToCart(product)
+                        })
+                        
+                        // Hide shimmer if we have cached data
+                        shimmerView?.stopShimmer()
+                        shimmerView?.visibility = View.GONE
+                        rvProducts?.visibility = View.VISIBLE
+                    }
                 }
 
                 // 2. Fetch live data from API to refresh the list
-                Log.d(TAG, "fetchProducts: Calling API")
+                Log.d(tag, "fetchProducts: Calling API")
                 val apiService = ApiService.create()
                 val remoteProducts = apiService.getProducts()
                 
                 if (remoteProducts.isNotEmpty()) {
-                    Log.d(TAG, "fetchProducts: API Success, found ${remoteProducts.size} items")
+                    Log.d(tag, "fetchProducts: API Success, found ${remoteProducts.size} items")
                     
                     // 3. Update local Room database with fresh data
-                    withContext(Dispatchers.IO) {
+                    val updatedProducts = withContext(Dispatchers.IO) {
                         productDao.deleteAllProducts()
                         productDao.insertProducts(remoteProducts)
-                        allProducts = productDao.allProducts
+                        productDao.getAllProducts()
                     }
                     
                     // 4. Refresh UI with latest data
+                    allProducts = updatedProducts
                     if (isAdded) {
-                        rvProducts?.adapter = ProductAdapter(allProducts)
+                        rvProducts?.adapter = ProductAdapter(allProducts, { product ->
+                            showProductDetailsDialog(product)
+                        }, { product ->
+                            addToWishlist(product)
+                        }, { product ->
+                            addToCart(product)
+                        })
                     }
                 }
 
             } catch (e: Exception) {
-                Log.e(TAG, "fetchProducts: Exception: ${e.message}")
+                Log.e(tag, "fetchProducts: Exception: ${e.message}")
                 if (allProducts.isEmpty() && isAdded) {
                     Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
@@ -133,9 +184,52 @@ class ProductFragment : Fragment() {
                         Toast.makeText(requireContext(), "No products available", Toast.LENGTH_SHORT).show()
                     }
                 }
-                Log.d(TAG, "fetchProducts: Finished")
+                Log.d(tag, "fetchProducts: Finished")
             }
         }
+    }
+
+    private fun showProductDetailsDialog(product: Product) {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.dialog_product_details)
+        
+        dialog.window?.apply {
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setBackgroundDrawableResource(android.R.color.transparent)
+        }
+
+        val ivImage = dialog.findViewById<ImageView>(R.id.ivProductDetailImage)
+        val tvCategory = dialog.findViewById<TextView>(R.id.tvDetailCategory)
+        val tvTitle = dialog.findViewById<TextView>(R.id.tvDetailTitle)
+        val tvPrice = dialog.findViewById<TextView>(R.id.tvDetailPrice)
+        val tvDescription = dialog.findViewById<TextView>(R.id.tvDetailDescription)
+        val btnAddToCart = dialog.findViewById<Button>(R.id.btnAddToCartDetail)
+        val btnCloseBottom = dialog.findViewById<Button>(R.id.btnCloseDetail)
+        val ivWishlist = dialog.findViewById<ImageView>(R.id.ivDetailWishlist)
+
+        tvCategory.text = product.category
+        tvTitle.text = product.title
+        tvPrice.text = String.format(Locale.getDefault(), "$%.2f", product.price)
+        tvDescription.text = product.description
+
+        Glide.with(requireContext())
+            .load(product.image)
+            .into(ivImage)
+
+        ivWishlist.setOnClickListener {
+            Toast.makeText(requireContext(), "${product.title} added to Wishlist!", Toast.LENGTH_SHORT).show()
+        }
+
+        btnAddToCart.setOnClickListener {
+            addToCart(product)
+            dialog.dismiss()
+        }
+
+        btnCloseBottom.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     // Removed syncFromApi as it's now integrated above for better error handling and sequence
