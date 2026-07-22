@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Room Database</string>
+    <string name="welcome">Welcome</string>
+    <string name="name_hint">Enter your name</string>
+    <string name="btn_continue">Continue</string>
+    <string name="name">Name</string>
+    <string name="profile_logo_desc">Profile Logo</string>
+    <string name="app_logo_desc">App Logo</string>
+    <string name="welcome_home">Hay, %1$s</string>
+    <string name="your_progress">Your Progress</string>
+    <string name="active_users">Active Users: 1,234</string>
+    <string name="popular_tasks">Popular Tasks</string>
+    <string name="analytics">Analytics</string>
+    <string name="reports">Reports</string>
+    <string name="icon_desc">Icon</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_product">Product</string>
+    <string name="nav_cart">Cart</string>
+    <string name="nav_profile">Profile</string>
+    <string name="search_hint">Search products&#8230;</string>
+    <string name="sort_desc">Sort</string>
+    <string name="category_title">Category</string>
+    <string name="cat_all">All</string>
+    <string name="cat_electronics">Electronics</string>
+    <string name="cat_fashion">Fashion</string>
+    <string name="cat_groceries">Groceries</string>
+    <string name="cat_home">Home</string>
+    <string name="cat_beauty">Beauty</string>
+</resources>
