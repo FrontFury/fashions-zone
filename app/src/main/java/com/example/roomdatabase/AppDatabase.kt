@@ -1,26 +1,31 @@
-package com.example.roomdatabase;
+package com.example.roomdatabase
 
-import android.content.Context;
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 
-@Database(entities = {Product.class}, version = 1, exportSchema = false)
-public abstract class AppDatabase extends RoomDatabase {
-    public abstract ProductDao productDao();
+@Database(entities = [Product::class, CartItem::class], version = 2, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun productDao(): ProductDao
+    abstract fun cartDao(): CartDao
 
-    private static volatile AppDatabase INSTANCE;
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
 
-    public static AppDatabase getDatabase(final Context context) {
-        if (INSTANCE == null) {
-            synchronized (AppDatabase.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    AppDatabase.class, "app_database")
-                            .build();
-                }
+        fun getDatabase(context: Context): AppDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "app_database"
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+                INSTANCE = instance
+                instance
             }
         }
-        return INSTANCE;
     }
 }

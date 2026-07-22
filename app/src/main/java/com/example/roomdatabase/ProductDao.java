@@ -1,6 +1,7 @@
 package com.example.roomdatabase;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -16,4 +17,7 @@ public interface ProductDao {
 
     @Query("DELETE FROM products")
     void deleteAllProducts();
+
+    @Delete
+    void deleteProduct(Product product);
 }

@@ -3,6 +3,8 @@
     <string name="welcome">Welcome</string>
     <string name="name_hint">Enter your name</string>
     <string name="btn_continue">Continue</string>
+    <string name="btn_close">Close</string>
+    <string name="btn_add_to_cart">Add to Cart</string>
     <string name="name">Name</string>
     <string name="profile_logo_desc">Profile Logo</string>
     <string name="app_logo_desc">App Logo</string>

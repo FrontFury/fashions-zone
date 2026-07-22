@@ -1,17 +1,26 @@
-package com.example.roomdatabase;
+package com.example.roomdatabase
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "products")
-public class Product {
+class Product {
     @PrimaryKey
-    public int id;
-    public String title;
-    public double price;
-    public String description;
-    public String category;
-    public String image;
+    var id: Int = 0
+    var title: String = ""
+    var price: Double = 0.0
+    var description: String = ""
+    var category: String = ""
+    var image: String = ""
 
-    public Product() {}
+    constructor()
+
+    constructor(id: Int, title: String, price: Double, description: String, category: String, image: String) {
+        this.id = id
+        this.title = title
+        this.price = price
+        this.description = description
+        this.category = category
+        this.image = image
+    }
 }

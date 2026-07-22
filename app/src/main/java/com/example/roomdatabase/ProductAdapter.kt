@@ -9,14 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.util.Locale
 
-class ProductAdapter(private val products: List<Product>) :
-    RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(
+    private val products: List<Product>,
+    private val onProductClick: (Product) -> Unit,
+    private val onWishlistClick: (Product) -> Unit,
+    private val onAddToCartClick: (Product) -> Unit
+) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivProductImage: ImageView = view.findViewById(R.id.ivProductImage)
         val tvProductCategory: TextView = view.findViewById(R.id.tvProductCategory)
         val tvProductTitle: TextView = view.findViewById(R.id.tvProductTitle)
         val tvProductPrice: TextView = view.findViewById(R.id.tvProductPrice)
+        val ivWishlist: ImageView = view.findViewById(R.id.ivWishlist)
+        val btnAddToCart: View = view.findViewById(R.id.btnAddToCart)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -34,6 +40,18 @@ class ProductAdapter(private val products: List<Product>) :
         Glide.with(holder.ivProductImage.context)
             .load(product.image)
             .into(holder.ivProductImage)
+
+        holder.itemView.setOnClickListener {
+            onProductClick(product)
+        }
+
+        holder.ivWishlist.setOnClickListener {
+            onWishlistClick(product)
+        }
+
+        holder.btnAddToCart.setOnClickListener {
+            onAddToCartClick(product)
+        }
     }
 
     override fun getItemCount(): Int = products.size
