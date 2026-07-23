@@ -36,4 +36,12 @@
     <string name="already_have_account">Already have an account? Sign In</string>
     <string name="login_btn">Login</string>
     <string name="register_btn">Register</string>
+    <string name="profile_picture_desc">Profile Picture</string>
+    <string name="user_name_default">User Name</string>
+    <string name="phone_label">Phone</string>
+    <string name="mail_label">Mail</string>
+    <string name="dark_mode_label">Dark mode</string>
+    <string name="profile_details_label">Profile details</string>
+    <string name="settings_label">Settings</string>
+    <string name="log_out_label">Log out</string>
 </resources>

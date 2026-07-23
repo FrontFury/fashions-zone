@@ -1,12 +1,13 @@
 package com.example.roomdatabase
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeFragment : Fragment() {
 
@@ -16,11 +17,15 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         
-        val sharedPref = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        val userName = sharedPref.getString("USER_NAME", "User")
+        val ivLogout = view.findViewById<ImageView>(R.id.ivLogout)
         
-        val tvWelcomeHome = view.findViewById<TextView>(R.id.tvWelcomeHome)
-        tvWelcomeHome.text = getString(R.string.welcome_home, userName)
+        ivLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(requireContext(), SignInActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
+        }
         
         return view
     }

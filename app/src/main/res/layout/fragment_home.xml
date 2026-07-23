@@ -25,19 +25,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/primary_gold" />
 
-        <TextView
-            android:id="@+id/tvWelcomeHome"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/welcome_home"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
+        <ImageView
+            android:id="@+id/ivLogout"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_logout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivProfile"
-            app:layout_constraintTop_toTopOf="@+id/ivProfile" />
+            app:layout_constraintTop_toTopOf="@+id/ivProfile"
+            app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
+            app:tint="@color/primary_gold"
+            android:contentDescription="Logout" />
 
         <!-- Category Title -->
         <TextView
