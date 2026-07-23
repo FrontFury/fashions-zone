@@ -16,10 +16,11 @@
         <!-- Header Section -->
         <ImageView
             android:id="@+id/ivProfile"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:contentDescription="@string/profile_logo_desc"
             android:src="@drawable/profilelogo"
+            android:scaleType="centerInside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/primary_gold" />
@@ -28,11 +29,11 @@
             android:id="@+id/tvWelcomeHome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="20dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/welcome_home"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivProfile"

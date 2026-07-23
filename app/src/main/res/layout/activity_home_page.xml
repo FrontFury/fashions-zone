@@ -17,62 +17,124 @@
     <LinearLayout
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_margin="16dp"
+        android:layout_height="80dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal"
         android:gravity="center"
+        android:background="@drawable/bottom_nav_bg"
+        android:paddingHorizontal="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/navHome"
+        <!-- Home -->
+        <LinearLayout
+            android:id="@+id/navHomeContainer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:background="@drawable/nav_item_active"
             android:gravity="center"
-            android:text="@string/nav_home"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="14sp" />
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/navHomeIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_home"
+                app:tint="@color/gold_light" />
+            <TextView
+                android:id="@+id/navHomeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Home"
+                android:textColor="@color/gold_light"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/navProduct"
+        <!-- Product -->
+        <LinearLayout
+            android:id="@+id/navProductContainer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:background="@drawable/nav_item_inactive"
             android:gravity="center"
-            android:text="@string/nav_product"
-            android:textColor="@color/primary_gold"
-            android:textSize="14sp" />
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/navProductIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_product"
+                app:tint="@color/gold_light" />
+            <TextView
+                android:id="@+id/navProductLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Product"
+                android:textColor="@color/gold_light"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/navCart"
+        <!-- Cart -->
+        <LinearLayout
+            android:id="@+id/navCartContainer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:background="@drawable/nav_item_inactive"
             android:gravity="center"
-            android:text="@string/nav_cart"
-            android:textColor="@color/primary_gold"
-            android:textSize="14sp" />
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/navCartIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_cart"
+                app:tint="@color/gold_light" />
+            <TextView
+                android:id="@+id/navCartLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Cart"
+                android:textColor="@color/gold_light"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/navProfile"
+        <!-- Profile -->
+        <LinearLayout
+            android:id="@+id/navProfileContainer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:background="@drawable/nav_item_inactive"
             android:gravity="center"
-            android:text="@string/nav_profile"
-            android:textColor="@color/primary_gold"
-            android:textSize="14sp" />
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/navProfileIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_profile"
+                app:tint="@color/gold_light" />
+            <TextView
+                android:id="@+id/navProfileLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Profile"
+                android:textColor="@color/gold_light"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </LinearLayout>
 
