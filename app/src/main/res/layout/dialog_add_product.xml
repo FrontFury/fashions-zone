@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="@color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Product"
+            android:textColor="@color/primary_gold"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"/>
+
+        <EditText
+            android:id="@+id/etProductTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Product Title"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gold_light"
+            android:backgroundTint="@color/primary_gold"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="none"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/etProductPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Price"
+            android:inputType="numberDecimal"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gold_light"
+            android:backgroundTint="@color/primary_gold"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="none"/>
+
+        <EditText
+            android:id="@+id/etProductCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Category"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gold_light"
+            android:backgroundTint="@color/primary_gold"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="none"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/etProductDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gold_light"
+            android:backgroundTint="@color/primary_gold"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="none"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/etProductImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Image URL"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gold_light"
+            android:backgroundTint="@color/primary_gold"
+            android:layout_marginBottom="24dp"
+            android:autofillHints="none"
+            android:inputType="textUri"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/btnCancel"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textColor="@color/gold_light"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:backgroundTint="@color/primary_gold"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

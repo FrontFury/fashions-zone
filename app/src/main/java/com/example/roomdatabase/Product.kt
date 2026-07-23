@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "products")
 class Product {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id: Int = 0
     var title: String = ""
     var price: Double = 0.0
