@@ -35,7 +35,7 @@ class GrteetingPage : AppCompatActivity() {
                 val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
                 sharedPref.edit().putString("USER_NAME", name).apply()
                 
-                val intent = Intent(this, HomePage::class.java)
+                val intent = Intent(this, SignInActivity::class.java)
                 startActivity(intent)
                 finish()
             }

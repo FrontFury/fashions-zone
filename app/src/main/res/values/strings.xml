@@ -28,4 +28,12 @@
     <string name="cat_groceries">Groceries</string>
     <string name="cat_home">Home</string>
     <string name="cat_beauty">Beauty</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="email_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+    <string name="dont_have_account">Don\'t have an account? Sign Up</string>
+    <string name="already_have_account">Already have an account? Sign In</string>
+    <string name="login_btn">Login</string>
+    <string name="register_btn">Register</string>
 </resources>
